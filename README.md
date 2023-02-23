@@ -1,5 +1,9 @@
 # bidox
 
+cms when editing history hits hard
+
+## REPLs
+
 Start a [REPL](#repls) in your editor or terminal of choice.
 
 Start the server with:
@@ -17,8 +21,6 @@ To reload changes:
 ```clojure
 (reset)
 ```
-
-## REPLs
 
 ### Cursive
 
