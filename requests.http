@@ -1,8 +1,39 @@
-:url = http://localhost:4000
+:url = http://localhost:4000/api
 :json = Content-Type: application/json
 
 #
 
-GET :url/api/health
+GET :url/health
+
+#
+
+GET :url/documents
+
+#
+
+GET :url/document
+{"title": "marketing mix", "ts": "1999-12-31"}
+
+#
+
+GET :url/document
+{"title": "marketing mix", "ts": "2023-03-06"}
+
+#
+
+GET :url/document
+:json
+
+{"title": "abc"
+ "xt/id": "1001"}
+
+#
+
+POST :url/document
+:json
+
+{"doc/title": "create document via post",
+ "doc/content": "fuck all climate-change denialists",
+ "xt/id": "1001"}
 
 #

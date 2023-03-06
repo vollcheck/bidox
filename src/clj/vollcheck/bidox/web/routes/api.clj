@@ -1,23 +1,29 @@
 (ns vollcheck.bidox.web.routes.api
   (:require
-    [vollcheck.bidox.web.controllers.health :as health]
-    [vollcheck.bidox.web.middleware.exception :as exception]
-    [vollcheck.bidox.web.middleware.formats :as formats]
-    [integrant.core :as ig]
-    [reitit.coercion.malli :as malli]
-    [reitit.ring.coercion :as coercion]
-    [reitit.ring.middleware.muuntaja :as muuntaja]
-    [reitit.ring.middleware.parameters :as parameters]
-    [reitit.swagger :as swagger]))
+   [vollcheck.bidox.web.controllers.health :as health]
+   [vollcheck.bidox.web.controllers.document :as document]
+   [vollcheck.bidox.web.middleware.exception :as exception]
+   [vollcheck.bidox.web.middleware.formats :as formats]
+   [integrant.core :as ig]
+   [reitit.coercion.malli :as malli]
+   [reitit.ring.coercion :as coercion]
+   [reitit.ring.middleware.muuntaja :as muuntaja]
+   [reitit.ring.middleware.parameters :as parameters]
+   [reitit.swagger :as swagger]))
 
 ;; Routes
-(defn api-routes [_opts]
+(defn api-routes [opts]
   [["/swagger.json"
     {:get {:no-doc  true
            :swagger {:info {:title "vollcheck.bidox API"}}
            :handler (swagger/create-swagger-handler)}}]
    ["/health"
-    {:get health/healthcheck!}]])
+    {:get health/healthcheck!}]
+   ["/documents"
+    {:get document/get-all-documents}]
+   ["/document"
+    {:get document/get-document}
+    #_{:post document/put-document}]])
 
 (defn route-data
   [opts]

@@ -5,14 +5,13 @@
     [vollcheck.bidox.config :as config]
     [vollcheck.bidox.env :refer [defaults]]
 
-    ;; Edges  
-    [kit.edge.db.xtdb]     
+    ;; Edges
+    [kit.edge.db.xtdb]
     [kit.edge.server.undertow]
     [vollcheck.bidox.web.handler]
 
     ;; Routes
-    [vollcheck.bidox.web.routes.api]
-    )
+    [vollcheck.bidox.web.routes.api])
   (:gen-class))
 
 ;; log uncaught exceptions in threads
