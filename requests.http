@@ -11,13 +11,13 @@ GET :url/documents
 
 #
 
-GET :url/document
-{"title": "marketing mix", "ts": "1999-12-31"}
+GET http://localhost:4000/api/document
+{"title": "marketing mix", "timestamp": "1999-12-31"}
 
 #
 
-GET :url/document
-{"title": "marketing mix", "ts": "2023-03-06"}
+GET http://localhost:4000/api/document
+{"title": "marketing mix"}
 
 #
 

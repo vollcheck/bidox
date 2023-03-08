@@ -1,5 +1,6 @@
 (ns vollcheck.bidox.web.controllers.document
   (:require
+   [clojure.instant :refer [read-instant-date]]
    [muuntaja.core :as m]
    [ring.util.http-response :refer [ok]]
    [xtdb.api :as xt]
@@ -15,14 +16,9 @@
 
 (defn get-document
   [req]
-  (let [{:keys [title ts]}
-        (->> req :body slurp (m/decode "application/json"))
-
-        ts (when ts
-             (clojure.instant/read-instant-date ts))]
-    (-> (if ts
-          (xt/db (commons/get-xt-node) ts)
-          (xt/db (commons/get-xt-node)))
+  (let [{:keys [title timestamp]} (->> req :body slurp (m/decode "application/json"))
+        timestamp (when timestamp (read-instant-date timestamp))]
+    (-> (xt/db (commons/get-xt-node) timestamp)
         (xt/q '{:find [(pull doc [:xt/id :doc/title :doc/content])]
                 :where [[doc :doc/title given-title]]
                 :in [given-title]}

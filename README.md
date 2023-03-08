@@ -2,22 +2,41 @@
 
 cms when editing history hits hard
 
-## REPLs
+## time travel
 
-Start a [REPL](#repls) in your editor or terminal of choice.
+xtdb allows you to travel in time which is cool:
 
-Start the server with:
+```console
+GET http://localhost:4000/api/document
+{"title": "marketing mix"}
 
-```clojure
-(go)
+# results in:
+[
+  [
+    {
+      "doc/title": "marketing mix",
+      "doc/content": "something something marketing mix",
+      "xt/id": 1000
+    }
+  ]
+]
 ```
 
-The default API is available under http://localhost:4000/api
+but if we go back in time to the good ol' days with given _optional_ `timestamp` argument:
 
-System configuration is available under `resources/system.edn`.
+```console
+GET http://localhost:4000/api/document
+{"title": "marketing mix", "timestamp": "1999-12-31"}
 
-To reload changes:
+# results in:
 
-```clojure
-(reset)
+[
+  [
+    {
+      "doc/title": "marketing mix",
+      "doc/content": "old time-travelled content for marketing mix",
+      "xt/id": 1000
+    }
+  ]
+]
 ```
