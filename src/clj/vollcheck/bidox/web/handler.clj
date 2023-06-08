@@ -12,7 +12,7 @@
     router
     (ring/routes
      ;; Handle trailing slash in routes - add it + redirect to it
-     ;; https://github.com/metosin/reitit/blob/master/doc/ring/slash_handler.md 
+     ;; https://github.com/metosin/reitit/blob/master/doc/ring/slash_handler.md
      (ring/redirect-trailing-slash-handler)
      (ring/create-resource-handler {:path "/"})
      (when (some? api-path)
@@ -28,7 +28,8 @@
        :not-acceptable
        (constantly (-> {:status 406, :body "Not acceptable"}
                        (http-response/content-type "text/html")))}))
-    {:middleware [(middleware/wrap-base opts)]}))
+    {:middleware [(middleware/wrap-base opts)
+                  (middleware/wrap-db opts)]}))
 
 (defmethod ig/init-key :router/routes
   [_ {:keys [routes]}]

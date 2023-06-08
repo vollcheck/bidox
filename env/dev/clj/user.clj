@@ -13,6 +13,20 @@
     [lambdaisland.classpath.watch-deps :as watch-deps]      ;; hot loading for deps
     [vollcheck.bidox.core :refer [start-app]]))
 
+
+(comment
+  (-> state/system
+      :db.xtdb/node)
+  )
+
+;;; portal-specific boilerplate
+(comment
+  (require '[portal.api :as p])
+  (def p (p/open))
+  (add-tap #'p/submit)
+  (tap> :hello)
+  )
+
 ;; uncomment to enable hot loading for deps
 (watch-deps/start! {:aliases [:dev :test]})
 
@@ -39,9 +53,9 @@
 
 (repl/set-refresh-dirs "src/clj")
 
-(def refresh repl/refresh)
+#_(def refresh repl/refresh)
 
-
+#_(go) ;; TODO: to be tested
 
 (comment
   (go)

@@ -32,7 +32,7 @@
                                       :absolute-redirects     true
                                       :content-types          true
                                       :default-charset        "utf-8"}}
-  }
+  :db #ig/ref :db.xtdb/node}
 
  :reitit.routes/api
  {:base-path "/api"

@@ -12,7 +12,7 @@
    [reitit.swagger :as swagger]))
 
 ;; Routes
-(defn api-routes [opts]
+(defn api-routes [_opts]
   [["/swagger.json"
     {:get {:no-doc  true
            :swagger {:info {:title "vollcheck.bidox API"}}
