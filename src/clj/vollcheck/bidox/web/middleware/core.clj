@@ -2,7 +2,8 @@
   (:require
     [vollcheck.bidox.env :as env]
     [ring.middleware.defaults :as defaults]
-    [ring.middleware.session.cookie :as cookie]))
+    [ring.middleware.session.cookie :as cookie]
+    [ring.middleware.cors :as cors]))
 
 (defn wrap-base
   [{:keys [_metrics site-defaults-config cookie-secret] :as opts}]
@@ -19,3 +20,9 @@
       (-> request
           (assoc :db db)
           (handler)))))
+
+(defn wrap-cors [& access-control]
+  (fn [handler]
+    (let [access-control (cors/normalize-config access-control)]
+      (fn [request]
+        (cors/handle-cors handler request access-control cors/add-access-control)))))
