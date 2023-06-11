@@ -2,6 +2,12 @@
 
 cms when editing history hits hard
 
+## client
+
+on the development enviroment, application will run on port `4000`.
+
+there's a bidox client as well, it will run on port `3000`.
+
 ## time travel
 
 xtdb allows you to travel in time which is cool:

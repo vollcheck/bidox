@@ -1,7 +1,7 @@
 (ns vollcheck.bidox.web.routes.api
   (:require
    [vollcheck.bidox.web.controllers.health :as health]
-   [vollcheck.bidox.web.controllers.document :as document]
+   [vollcheck.bidox.web.controllers.document :as doc]
    [vollcheck.bidox.web.middleware.exception :as exception]
    [vollcheck.bidox.web.middleware.formats :as formats]
    [integrant.core :as ig]
@@ -20,10 +20,10 @@
    ["/health"
     {:get health/healthcheck!}]
    ["/documents"
-    {:get document/get-all-documents}]
+    {:get doc/get-all-documents}]
    ["/document"
-    {:get document/get-document}
-    #_{:post document/put-document}]])
+    {:get doc/get-document
+     :post doc/put-document}]])
 
 (defn route-data
   [opts]

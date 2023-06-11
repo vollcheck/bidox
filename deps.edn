@@ -11,6 +11,8 @@
            ring/ring-core                  {:mvn/version "1.9.5"}
            ring/ring-defaults              {:mvn/version "0.3.3"}
 
+           ring-cors/ring-cors             {:mvn/version "0.1.13"}
+
            ;; Logging
            ch.qos.logback/logback-classic  {:mvn/version "1.4.4"}
 

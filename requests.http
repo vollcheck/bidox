@@ -11,6 +11,10 @@ GET :url/documents
 
 #
 
+GET http://localhost:4000/api/document/1002
+
+#
+
 GET http://localhost:4000/api/document
 {"title": "marketing mix", "timestamp": "1999-12-31"}
 
@@ -34,6 +38,6 @@ POST :url/document
 
 {"doc/title": "create document via post",
  "doc/content": "fuck all climate-change denialists",
- "xt/id": "1001"}
+ "xt/id": "1231"}
 
 #
