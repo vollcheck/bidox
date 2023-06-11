@@ -5,43 +5,54 @@
    [ring.util.http-response :refer [ok]]
    [xtdb.api :as xt]))
 
-(defn- describe-doc [[id title]]
-  {:id id
-   :title title})
-
-(defn- make-flat [doc]
-  (if (= 1 (count doc))
-    (first doc)
-    doc))
-
 (defn get-all-documents
   [req]
   (when-let [xt-node (:db req)]
     (-> (xt/db xt-node)
-        (xt/q '{:find [id title]
+        (xt/q '{:find [id title] ;; that could be (pull doc [:xt/id :doc/title])
+                :keys [id title]
                 :where [[doc :doc/title title]
                         [doc :xt/id id]]})
-        ((fn [docs] (map describe-doc docs)))
         (ok))))
 
-(defn get-document
-  [req]
-  (if-let [xt-node (:db req)]
-    (let [id (-> req :path-params :id parse-long)]
-      (-> (xt/db xt-node)
-          (xt/q '{:find [(pull doc [:xt/id :doc/title :doc/content])] ;; (pull doc [*])
-                  :in [id]
-                  :where [[doc :xt/id id]]}
-                id)
-          first make-flat ok))
+(comment
+  (-> integrant.repl.state/system
+      :db.xtdb/node
+      xt/db
+      (xt/q '{:find [id title content]
+              :keys [id title content]
+              :in [given-id]
+              :where [[doc :xt/id given-id]
+                      [doc :xt/id id]
+                      [doc :doc/title title]
+                      [doc :doc/content content]]}
+            1002)
+      )
 
-    #_(let [{:keys [title timestamp]} (->> req :body slurp (m/decode "application/json"))
+
+  #_(let [{:keys [title timestamp]} (->> req :body slurp (m/decode "application/json"))
           timestamp (when timestamp (read-instant-date timestamp))]
       (-> (if timestamp
             (xt/db xt-node timestamp)
             (xt/db xt-node))
           ))
 
+  )
+
+(defn get-document
+  [req]
+  (if-let [xt-node (:db req)]
+    (let [id (-> req :path-params :id parse-long)]
+      (-> (xt/db xt-node)
+          (xt/q '{:find [id title content]
+                  :keys [id title content]
+                  :in [given-id]
+                  :where [[doc :xt/id given-id]
+                          [doc :xt/id id]
+                          [doc :doc/title title]
+                          [doc :doc/content content]]}
+                id)
+          first ok))
     (ok))) ;; TODO: do you really want to return anything if there's no db?
 
 (defn put-document
