@@ -21,7 +21,10 @@
     {:get health/healthcheck!}]
    ["/documents"
     {:get doc/get-all-documents}]
-   ["/document"
+   #_["/document"
+      {:get doc/get-document
+       :post doc/put-document}]
+   ["/document/:id"
     {:get doc/get-document
      :post doc/put-document}]])
 
